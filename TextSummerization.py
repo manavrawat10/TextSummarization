@@ -8,6 +8,7 @@ Created on Tue Jan 23 10:28:56 2018
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 stopWords = set(stopwords.words("english"))
+#Passage 
 text="""
 There are so many lessons one can learn about life from a dog. Imagine this scenario: it is raining heavily outside and you need to leave for someone's house. The dog is up and eager, to go with you. You tell it to stay home. As you leave, you see it squeezing out through the gap in the doorway. You scold it and order it back home. Then at every turn you make, you suddenly see it following you sheepishly at a distance. It follows at the risk of being reprimanded for the sore reason of being somewhere nearby. How else can we experience so selfless an instance of love and faithfulness? We can learn a lifelong lesson from this sincere warm display of perpetual companionship.
 Observe the eating habits of your dog. It does not eat, except when hungry. It does not drink, unless it is thirsty. It does not gorge itself. It stops eating when it has had enough.
@@ -20,7 +21,9 @@ A dog does things with all vigor. However, when there is nothing to do, it lies 
 
 A dog above all is truly man's best friend. 
 """
+#tokenizing word
 words = word_tokenize(text)
+#creating a word frequency other than stop words
 freqTable = dict()
 for word in words:
     word = word.lower()
@@ -30,26 +33,28 @@ for word in words:
         freqTable[word] += 1
     else:
         freqTable[word] = 1
+#tokenizing on the basis of sentences.
 sentences = sent_tokenize(text)
 #print(sentences)
-print(freqTable)
+#print(freqTable)
+#creating a sentence dictonary
 sentenceValue = dict()
 for sentence in sentences:
     for wordValue in freqTable:
         #print(wordValue)
         if wordValue in sentence:
             if sentence in sentenceValue:
-                sentenceValue[sentence]+=freqTable[wordValue]
+                sentenceValue[sentence]+=freqTable[wordValue]    #sentence already there in the dict
             else:
-                sentenceValue[sentence]=freqTable[wordValue]
+                sentenceValue[sentence]=freqTable[wordValue]    #new sentence entry in the dict
 print(sentenceValue)
 sumValues = 0
 for sentence in sentenceValue:
     sumValues += sentenceValue[sentence]
-print(sumValues)
+#print(sumValues)
 # Average value of a sentence from original text
 average = int(sumValues/ len(sentenceValue))
-print(average)
+#print(average)
 summary = ''
 for sentence in sentences:
         if sentence in sentenceValue and sentenceValue[sentence] > (1.5 * average):
